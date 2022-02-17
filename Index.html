@@ -15,11 +15,12 @@
             <input type="button" onclick="insertRow()" name="Insert" id="Insert" value="Insert">
         </p>
         <ul id="toDoList">
-            
+
         </ul>
 		<script>
                 //add new row to to do list
                 function insertRow(){
+
                     var li = document.createElement("li");
                     var toDoInput = document.getElementById("toDo").value;
                     var toDoText = document.createTextNode(toDoInput + " " + time.value);
@@ -31,21 +32,27 @@
                         document.getElementById("toDoList").appendChild(li);
                     }
                     document.getElementById("toDo").value = "";
-                    
-                    //delete later
-                    var span = document.createElement("SPAN");
-                    var txt = document.createTextNode("DELETE");
-                    span.className = "close";
-                    span.appendChild(txt);
-                    li.appendChild(span);
 
-                    for (i = 0; i < close.length; i++) {
-                        close[i].onclick = function() {
-                            var div = this.parentElement;
-                            div.style.display = "none";
+                    var doneButton = document.createElement("input");
+                    doneButton.type ="checkbox";
+                    li.appendChild(doneButton);
+                    //add Delete button
+                    var deleteButton = document.createElement("input");
+                    deleteButton.type ="button";
+                    deleteButton.className = "delete"
+                    deleteButton.value ="X";
+                    li.appendChild(deleteButton);
+                    
+                    //delete button functions
+                    var deleteButtons = document.getElementsByClassName("delete");
+                        for (i = 0; i < deleteButtons.length; i++){
+                            deleteButtons[i].onclick = function(){
+                            var listItem = this.parentElement;
+                            listItem.style.display = "none";
                         }
                     }
                 }
+
         </script>
 	</body>
 </html>
