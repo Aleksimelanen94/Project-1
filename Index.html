@@ -7,39 +7,44 @@
 	<body>
         <h1>To do list</h1>
         <p>
-            Date:
-            <label for="textfield">:</label>
-            <input type ="date" name = "date" id="datefield">
-            <br>
             To do:
-            <input type="text" name="toDo" id="toDo">
-            <br>
-            Time: 
+            <input type="text" name="toDo" id="toDo" maxlength="30">
+            Time (optional): 
             <input type="time" name="time" id="time">
             <br>
-            <input type="button" onclick="insertRows()" name="Insert" id="Insert" value="Insert">
+            <input type="button" onclick="insertRow()" name="Insert" id="Insert" value="Insert">
         </p>
-        <table id="data" class="display">
-
-        </table>
+        <ul id="toDoList">
+            
+        </ul>
 		<script>
-                function insertRows(){
+                //add new row to to do list
+                function insertRow(){
+                    var li = document.createElement("li");
+                    var toDoInput = document.getElementById("toDo").value;
+                    var toDoText = document.createTextNode(toDoInput + " " + time.value);
+                    li.appendChild(toDoText);
+                    //check if user textfield input is valid
+                    if(toDoInput === "" || toDoInput.length < 4){
+                        alert("Textfield is empty or invalid (input must be more than 4 characters long)");
+                    }else{
+                        document.getElementById("toDoList").appendChild(li);
+                    }
+                    document.getElementById("toDo").value = "";
+                    
+                    //delete later
+                    var span = document.createElement("SPAN");
+                    var txt = document.createTextNode("DELETE");
+                    span.className = "close";
+                    span.appendChild(txt);
+                    li.appendChild(span);
 
-                    var table = document.getElementById("data");
-
-                    var row = table.insertRow();
-
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-
-                    var date = document.getElementById('datefield').value;
-                    var activity  = document.getElementById('toDo').value;
-                    var time = document.getElementById('time').value;
-
-                cell1.innerHTML = date;
-                cell2.innerHTML = activity;
-                cell3.innerHTML = time;
+                    for (i = 0; i < close.length; i++) {
+                        close[i].onclick = function() {
+                            var div = this.parentElement;
+                            div.style.display = "none";
+                        }
+                    }
                 }
         </script>
 	</body>
