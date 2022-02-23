@@ -3,23 +3,32 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>To do list</title>
+        <link rel="stylesheet" href="Design.css">
 	</head>
 	<body>
-        <h1>To do list</h1>
+        <div class="header">
+            <h1>To do list</h1>
+        </div>
+
         <p>
             To do:
             <input type="text" name="toDo" id="toDo" maxlength="30">
             Time (optional): 
             <input type="time" name="time" id="time">
-            <br>
-            <input type="button" onclick="insertRow()" name="Insert" id="Insert" value="Insert">
-        </p>
-        <ul id="toDoList">
 
-        </ul>
+            <input type="button" onclick="addRow()" name="add" id="add" value="add">
+        </p>
+        <div class="list">
+            <ul id="toDoList">
+
+            </ul>
+        </div>
+
+        <input type="button" onclick="clearList()" name="clear" id="clear" value="clear list">
+        <p class="listCounter"></p>
 		<script>
                 //add new row to to do list
-                function insertRow(){
+                function addRow(){
 
                     var li = document.createElement("li");
                     var toDoInput = document.getElementById("toDo").value;
@@ -33,23 +42,36 @@
                     }
                     document.getElementById("toDo").value = "";
 
+                    //reset time value
+                    var timeInput = document.getElementById("time");
+                    timeInput.value = timeInput.defaultValue;
+                    
+                    //create checkbox to list item
                     var doneButton = document.createElement("input");
                     doneButton.type ="checkbox";
+                    doneButton.className = "doneButton";
                     li.appendChild(doneButton);
-                    //add Delete button
+                    //add Delete button to list item
                     var deleteButton = document.createElement("input");
                     deleteButton.type ="button";
                     deleteButton.className = "delete"
                     deleteButton.value ="X";
                     li.appendChild(deleteButton);
                     
-                    //delete button functions
+                    //delete button function
                     var deleteButtons = document.getElementsByClassName("delete");
                         for (i = 0; i < deleteButtons.length; i++){
                             deleteButtons[i].onclick = function(){
                             var listItem = this.parentElement;
                             listItem.style.display = "none";
                         }
+                    }
+                }
+                //clear all list items
+                function clearList(){
+                    var listItem = document.getElementsByTagName("li");
+                    for(i = 0; i < listItem.length; i++){
+                        listItem[i].style.display = "none";
                     }
                 }
 
