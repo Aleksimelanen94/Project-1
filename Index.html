@@ -16,7 +16,7 @@
             Time (optional): 
             <input type="time" name="time" id="time">
 
-            <input type="button" onclick="addRow()" name="add" id="add" value="add">
+            <input type="button" onclick="addRow()" name="add" id="add" value="Add">
         </p>
         <div class="list">
             <ul id="toDoList">
@@ -24,7 +24,10 @@
             </ul>
         </div>
 
-        <input type="button" onclick="clearList()" name="clear" id="clear" value="clear list">
+        <input type="button" onclick="clearList()" name="clear" id="clear" value="Clear list">
+        
+        <input type="button" onclick="SaveList()" name="saveButton" id="saveButton" value="Save">
+        <input type="button" onclick="LoadList()" name="loadButton" id="loadButton" value="Load">
         <p class="listCounter"></p>
 		<script>
                 //add new row to to do list
@@ -34,6 +37,7 @@
                     var toDoInput = document.getElementById("toDo").value;
                     var toDoText = document.createTextNode(toDoInput + " " + time.value);
                     li.appendChild(toDoText);
+                    
                     //check if user textfield input is valid
                     if(toDoInput === "" || toDoInput.length < 4){
                         alert("Textfield is empty or invalid (input must be more than 4 characters long)");
@@ -75,6 +79,21 @@
                     }
                 }
 
+                function SaveList(){
+                    var itemList = [];
+
+                    var itemValues = document.querySelectorAll('li');
+                    for(i = 0; i < itemValues.length; i++){
+                        itemList.push(itemValues[i].innerHTML);
+                    }
+                    console.log(itemList);
+                    localStorage.setItem('items', JSON.stringify(itemList));
+                    console.log(localStorage);
+                }
+
+                function LoadList(){
+                    const storedList = JSON.parse(localStorage.getItem('items'));
+                }
         </script>
 	</body>
 </html>
