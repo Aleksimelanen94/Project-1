@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>To do list</title>
+        <script src="toDoList.js"></script>
         <link rel="stylesheet" href="Design.css">
 	</head>
 	<body>
@@ -36,6 +37,7 @@
                     var li = document.createElement("li");
                     var toDoInput = document.getElementById("toDo").value;
                     var toDoText = document.createTextNode(toDoInput + " " + time.value);
+                    //toDoText.className = "liText";
                     li.appendChild(toDoText);
                     
                     //check if user textfield input is valid
@@ -73,7 +75,7 @@
                 }
                 //clear all list items
                 function clearList(){
-                    var listItem = document.getElementsByTagName("li");
+                    var listItem = document.getElementsByName("li");
                     for(i = 0; i < listItem.length; i++){
                         listItem[i].style.display = "none";
                     }
@@ -84,7 +86,7 @@
 
                     var itemValues = document.querySelectorAll('li');
                     for(i = 0; i < itemValues.length; i++){
-                        itemList.push(itemValues[i].innerHTML);
+                        itemList.push(itemValues[i].childNodes[0].nodeValue);
                     }
                     console.log(itemList);
                     localStorage.setItem('items', JSON.stringify(itemList));
@@ -93,6 +95,7 @@
 
                 function LoadList(){
                     const storedList = JSON.parse(localStorage.getItem('items'));
+                    console.log(storedvalue);
                 }
         </script>
 	</body>
